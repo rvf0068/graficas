@@ -1,0 +1,90 @@
+#+title: Gráficas simples
+#+author: 
+#+date: 2019-07-31 17:00 -0500
+
+#+setupfile: options.org
+#+beamer: \languagepath{spanish}
+#+latex_header: \usepackage{tkz-berge}
+
+* Definiciones
+
+** Gráficas simples
+
+*** Gráfica, vértices, aristas 				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+    Una *gráfica simple* es un par ordenado \(G=(V(G),E(G))\) tal que:
+    - \(V(G)\) es un conjunto, cuyos elementos se llaman *vértices*,
+    - \(E(G)\) es un conjunto cuyos elementos son subconjuntos de
+      \(V(G)\) de cardinalidad 2. Los elementos de \(E(G)\) se llaman *aristas*.
+
+*** Ejemplo
+    Definamos \(G\) como \(G=(V(G),E(G))\) por
+    medio de \(V(G)=\{1,2,3\}\), \(E(G)=\bigl\{\{1,2\},\{2,3\}\bigr\}\).
+
+** Otros ejemplos:
+   - \(V(G)=\mathbb{N}\), \(E(G)=\{\{x,y\}\mid |x-y|\geq 5\}\).
+   - \(V(G)=\{1,2,3,\ldots,20\}\), \(E(G)=\{\{x,y\}\mid |x-y|\text{ es
+     primo}\}\).
+   - \(V(G)=\{x\mid x\text{ es alumno de la UAEH}\}\),
+     \(E(G)=\{\{x,y\}\mid x,y\text{ son amigos}\}\).
+   - \(V(G)\) es el conjunto de las ciudades del mundo, \(E(G)\) es el
+     conjunto de las parejas de ciudades entre las cuales existe un vuelo
+     comercial directo.
+   - \(V(G)\) es el conjunto de las 28 fichas de dominó, \(E(G)\) es
+     el conjunto de parejas de fichas que se pueden juntar de acuerdo
+     a las reglas.
+   - Dada una gráfica \(G\), se define una gráfica \(L(G)\) como:
+     - \(V(L(G))=E(G)\),
+     - \(E(L(G))=\{\{e_{1},e_{2}\}\mid e_{1}\ne e_{2}, e_{1}\cap e_{2}\ne\emptyset\}\).
+
+** Adyacencia
+
+*** Vértices adyacentes
+    Si \(\{v,w\}\in E(G)\), decimos que \(v,w\) son *adyacentes*, y
+    escribimos \(v\sim w\).
+
+*** Grado
+    Si \(v\in V\), el *grado* de \(v\) es la cantidad de vértices
+    adyacentes a \(v\).
+
+** Dibujo de una gráfica
+   La gráfica dada por: \(V(G)=\{1,2,3\}\),
+   \(E(G)=\bigl\{\{1,2\},\{2,3\}\bigr\}\), se puede representar con el
+   siguente dibujo: 
+   
+   #+name: grafica1
+   #+header: :file (by-backend (latex "grafica1.tikz") (beamer "grafica1.tikz") (t "grafica1.png"))
+   #+begin_src latex :results raw file
+\begin{tikzpicture}
+  \graph[branch right=2cm, nodes={circle, draw, inner sep=2pt}] { subgraph P_n [n=3] };
+\end{tikzpicture}
+   #+end_src
+   
+   #+attr_html: :width 400 :alt grafica1 :align center
+   #+attr_latex: :float t :width ""
+   #+RESULTS[292ddbbf08d69178ecdd13a3bc53c975bb61ff9f]: grafica1
+   [[file:grafica1.png]]
+
+   Nota que el dibujo no es único, por ejemplo, no importa el tamaño
+   de las aristas.
+
+
+* Otros tipos de gráficas
+
+** Multigráficas, lazos, digráficas
+
+   - En una gráfica simple, las aristas unen vértices distintos, y
+     entre un par de vértices distintos puede haber a lo más una
+     arista.
+   - Una *multigráfica* es parecida a una gráfica, pero además se
+     permiten *aristas múltiples* y *lazos*.
+
+
+* COMMENT Local Variables
+
+# Local Variables:
+# org-confirm-babel-evaluate: nil
+# org-latex-prefer-user-labels: t
+# End:
