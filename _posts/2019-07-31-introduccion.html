@@ -1,0 +1,133 @@
+---
+layout: post
+title: Gráficas simples
+date: 2019-07-31 17:00 -0500 
+comments: true
+published: true
+categories: 
+---
+
+
+<div id="outline-container-org1a01235" class="outline-2">
+<h2 id="org1a01235"><span class="section-number-2">1</span> Definiciones</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgcb6814d" class="outline-3">
+<h3 id="orgcb6814d"><span class="section-number-3">1.1</span> Gráficas simples</h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<ol class="org-ol">
+<li><a id="org674a734"></a>Gráfica, vértices, aristas<br />
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Una <b>gráfica simple</b> es un par ordenado \(G=(V(G),E(G))\) tal que:
+</p>
+<ul class="org-ul">
+<li>\(V(G)\) es un conjunto, cuyos elementos se llaman <b>vértices</b>,</li>
+<li>\(E(G)\) es un conjunto cuyos elementos son subconjuntos de
+\(V(G)\) de cardinalidad 2. Los elementos de \(E(G)\) se llaman <b>aristas</b>.</li>
+</ul>
+</div>
+</li>
+
+<li><a id="org06c3fe2"></a>Ejemplo<br />
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+Definamos \(G\) como \(G=(V(G),E(G))\) por
+medio de \(V(G)=\{1,2,3\}\), \(E(G)=\bigl\{\{1,2\},\{2,3\}\bigr\}\).
+</p>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org9e5b535" class="outline-3">
+<h3 id="org9e5b535"><span class="section-number-3">1.2</span> Otros ejemplos:</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>\(V(G)=\mathbb{N}\), \(E(G)=\{\{x,y\}\mid |x-y|\geq 5\}\).</li>
+<li>\(V(G)=\{1,2,3,\ldots,20\}\), \(E(G)=\{\{x,y\}\mid |x-y|\text{ es
+     primo}\}\).</li>
+<li>\(V(G)=\{x\mid x\text{ es alumno de la UAEH}\}\),
+\(E(G)=\{\{x,y\}\mid x,y\text{ son amigos}\}\).</li>
+<li>\(V(G)\) es el conjunto de las ciudades del mundo, \(E(G)\) es el
+conjunto de las parejas de ciudades entre las cuales existe un vuelo
+comercial directo.</li>
+<li>\(V(G)\) es el conjunto de las 28 fichas de dominó, \(E(G)\) es
+el conjunto de parejas de fichas que se pueden juntar de acuerdo
+a las reglas.</li>
+<li>Dada una gráfica \(G\), se define una gráfica \(L(G)\) como:
+<ul class="org-ul">
+<li>\(V(L(G))=E(G)\),</li>
+<li>\(E(L(G))=\{\{e_{1},e_{2}\}\mid e_{1}\ne e_{2}, e_{1}\cap e_{2}\ne\emptyset\}\).</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org341e06b" class="outline-3">
+<h3 id="org341e06b"><span class="section-number-3">1.3</span> Adyacencia</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<ol class="org-ol">
+<li><a id="orge627eda"></a>Vértices adyacentes<br />
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+Si \(\{v,w\}\in E(G)\), decimos que \(v,w\) son <b>adyacentes</b>, y
+escribimos \(v\sim w\).
+</p>
+</div>
+</li>
+
+<li><a id="org55daad7"></a>Grado<br />
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+Si \(v\in V\), el <b>grado</b> de \(v\) es la cantidad de vértices
+adyacentes a \(v\).
+</p>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-orgf66873f" class="outline-3">
+<h3 id="orgf66873f"><span class="section-number-3">1.4</span> Dibujo de una gráfica</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+La gráfica dada por: \(V(G)=\{1,2,3\}\),
+\(E(G)=\bigl\{\{1,2\},\{2,3\}\bigr\}\), se puede representar con el
+siguente dibujo: 
+</p>
+
+
+<div class="figure">
+<p><img src="{{ site.baseurl }}/images/grafica1.png" alt="grafica1" width="400" align="center" />
+</p>
+</div>
+
+<p>
+Nota que el dibujo no es único, por ejemplo, no importa el tamaño
+de las aristas.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org21e5af0" class="outline-2">
+<h2 id="org21e5af0"><span class="section-number-2">2</span> Otros tipos de gráficas</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orga61c669" class="outline-3">
+<h3 id="orga61c669"><span class="section-number-3">2.1</span> Multigráficas, lazos, digráficas</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>En una gráfica simple, las aristas unen vértices distintos, y
+entre un par de vértices distintos puede haber a lo más una
+arista.</li>
+<li>Una <b>multigráfica</b> es parecida a una gráfica, pero además se
+permiten <b>aristas múltiples</b> y <b>lazos</b>.</li>
+</ul>
+</div>
+</div>
+</div>
