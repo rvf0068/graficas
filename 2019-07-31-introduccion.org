@@ -18,6 +18,9 @@
     - \(V(G)\) es un conjunto, cuyos elementos se llaman *vértices*,
     - \(E(G)\) es un conjunto cuyos elementos son subconjuntos de
       \(V(G)\) de cardinalidad 2. Los elementos de \(E(G)\) se llaman *aristas*.
+    - Si denotamos el conjunto de parejas de elementos de un conjunto
+      \(X\) como \(\binom{X}{2}\), tenemos que \(E(G)\subseteq
+      \binom{V(G)}{2}\).
 
 *** Ejemplo
     Definamos \(G\) como \(G=(V(G),E(G))\) por
@@ -63,15 +66,12 @@
    #+end_src
    
    #+attr_html: :width 400 :alt grafica1 :align center
-   #+attr_latex: :float t :width ""
+   #+attr_latex: :float t :width 7cm
    #+RESULTS[292ddbbf08d69178ecdd13a3bc53c975bb61ff9f]: grafica1
    [[file:grafica1.png]]
 
    Nota que el dibujo no es único, por ejemplo, no importa el tamaño
    de las aristas.
-
-
-* Otros tipos de gráficas
 
 ** Multigráficas, lazos, digráficas
 
@@ -80,7 +80,24 @@
      arista.
    - Una *multigráfica* es parecida a una gráfica, pero además se
      permiten *aristas múltiples* y *lazos*.
+   - En una *digráfica*, las aristas son pares ordenados \((u,v)\). En
+     este caso, las aristas se suelen llamar *flechas*.
 
+** Orden y tamaño
+
+   - La cantidad de vértices de una gráfica (finita) \(G\) se llama el
+     *orden* y se denota con \(|G|\).
+   - La cantidad de aristas de una gráfica \(G\) se llama el *tamaño*
+     de la gráfica y se denota con \(\epsilon(G)\). Nótese que
+     \(\epsilon(G)\leq\binom{|G|}{2}\).
+
+** Gráfica completa y gráfica vacía
+
+   - La *gráfica completa* \(K_{n}\) es la gráfica simple donde
+     \(V(K_{n})=\{1,2,\ldots, n\}\) y \(E(G)=\binom{V(G)}{2}\).
+   - La *gráfica vacía* \(\overline{K_{n}}\) es la gráfica con
+     \(V(\overline{K_{n}})=V(K_{n})\) y
+     \(E(\overline{K_{n}}=\emptyset)\).
 
 * COMMENT Local Variables
 

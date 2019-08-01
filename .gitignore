@@ -3,3 +3,4 @@
 *.tikz
 *.tex
 auto/
+libretas/.ipynb_checkpoints/

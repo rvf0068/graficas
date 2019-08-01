@@ -1,0 +1,348 @@
+#+title: Introducción
+
+Usaremos el lenguaje de programación [[https://www.python.org/][Python]], para ilustrar un
+ejemplo sencillo.
+
+#+BEGIN_QUOTE
+   Se invierten $1000 de tal manera que se gana un interés del %1
+   mensual.
+#+END_QUOTE
+
+   #+BEGIN_SRC ipython :session 
+x=[1000]
+for i in range(10):
+    x.append(1.01*x[i])
+print(x)
+   #+END_SRC
+
+   #+RESULTS:
+   : # Out[1]:
+
+   En este caso, =x= representa una lista. Los elementos de una lista
+   en Python se accesan con =x[.]=, empezando por 0.
+
+   #+BEGIN_SRC ipython :session :exports code
+y=[4,15,24,56]
+print("El primer elemento es", y[0], "y el último es", y[3])
+   #+END_SRC
+
+   #+RESULTS:
+   : # Out[2]:
+
+   En Python, =range= sirve para crear una lista de enteros empezando
+   con 0.
+
+   #+BEGIN_SRC ipython :session :exports code
+print(range(7))
+print(list(range(7)))
+   #+END_SRC
+
+   #+RESULTS:
+   : # Out[4]:
+
+   Para hacer un ciclo =for=, se dejan espacios al principio del
+   renglón para indicar hasta dónde se aplica el ciclo. En particular:
+   - no se usan llaves para delimitar el ciclo,
+   - *el espacio en blanco es significativo* en Python.
+
+   #+BEGIN_SRC ipython :session :exports code
+for i in range(5):
+    print("Hola")
+print("Adiós")
+   #+END_SRC
+
+   #+RESULTS:
+   : # Out[5]:
+
+   #+BEGIN_SRC ipython :session :exports code
+for i in range(16):
+    print("Na")
+print("Batman")
+   #+END_SRC
+
+   #+RESULTS:
+   : # Out[6]:
+
+   Para añadir el elemento =u= al final de una lista =x=, se usa =x.append(u)=.
+
+   #+BEGIN_SRC ipython :session :exports code
+y=[4,15,24,56]
+y.append(-3)
+print("La lista es ahora", y)
+   #+END_SRC
+
+   #+RESULTS:
+   : # Out[7]:
+
+   En este caso se dice que =append= es un *método* asociado a la
+   estructura de *lista*.
+
+   Finalmente, produciremos una gráfica de los primeros 300 valores de
+   la sucesión de la inversión, usando una /biblioteca/ de Python,
+   llamada =matplotlib=.
+
+   #+BEGIN_SRC ipython :results file :session 
+import matplotlib.pyplot as plt
+x=[1000]
+for i in range(300):
+    x.append(1.01*x[i])
+plt.plot(x)
+plt.show()
+   #+END_SRC
+
+   #+RESULTS:
+   [[file:./obipy-resources/85h0Aw.png]]
+
+
+
+   En este caso, se importa el código de un /objeto/ =matplotlib.pyplot=, al cual
+   se le referirá como =plt=, y tiene métodos =plot= y =show=.
+
+* Definición de funciones
+
+  Otra manera de trabajar el problema anterior es definir una función
+  que calcule el término siguiente de una lista a partir del anterior.
+
+  #+BEGIN_SRC ipython :session :exports code
+def f(x):
+    return 1.01*x
+  #+END_SRC
+
+  #+RESULTS:
+  : # Out[12]:
+
+  Entonces podremos por ejemplo tener:
+
+  #+BEGIN_SRC ipython :session
+print(f(1000))
+print(f(f(1000)))
+  #+END_SRC
+
+  #+RESULTS:
+  : # Out[13]:
+
+* Definir funciones usando if y while
+
+  #+BEGIN_SRC ipython :session :exports code
+def fib(n):
+    if n == 0:
+        return 1
+    elif n == 1:
+        return 1
+    else:
+        return fib(n-1)+fib(n-2)
+
+print(fib(0), fib(5), fib(10))
+  #+END_SRC
+
+  #+RESULTS:
+  : # Out[15]:
+
+* Otros métodos
+
+  Las listas tienen, además del método =append=, el método =pop=, que
+  sirve para sacar un elemento del final de la lista. De esta manera
+  podemos imitar una /pila/ (stack), es decir, una "fila" donde el
+  último que llega es el primero que sale. (En inglés, se le llama una
+  lista LIFO (/last in, first out/)).
+
+  #+BEGIN_SRC ipython :session :exports code
+p=[]
+p.append("Ana")
+print(p)
+p.append("Beto")
+print(p)
+p.append("Carlos")
+print(p)
+  #+END_SRC
+
+  #+RESULTS:
+  : # Out[17]:
+
+  Después de creada la lista, podemos extraer sus elementos:
+
+  #+BEGIN_SRC ipython :session :exports code
+a=p.pop()
+print(a)
+print(p)
+  #+END_SRC
+
+  #+RESULTS:
+  : # Out[18]:
+
+* Diccionarios en python
+
+Un diccionario es una estructura de datos en Python que generaliza a
+las listas.
+
+** Ejemplo
+
+Supongamos a una actriz le han ofrecido los siguientes proyectos para
+el siguiente año.
+
+| Título                  | Inicio     | Final      |
+|-------------------------+------------+------------|
+| Star Wars 10            | Enero 15   | Febrero 2  |
+| Toy Story 5             | Enero 28   | Febrero 3  |
+| Anabelle 3              | Marzo 2    | Marzo 5    |
+| Planeta de los Simios 4 | Enero 17   | Marzo 3    |
+| Titanic 2               | Febrero 4  | Febrero 25 |
+| Harry Potter 9          | Febrero 16 | Marzo 17   |
+| Saw 9                   | Marzo 10   | Marzo 11   |
+|-------------------------+------------+------------|
+
+Una manera de organizar la información podría ser por medio de listas,
+como:
+
+#+BEGIN_SRC ipython :session 
+st10 = ["Star Wars 10", "Enero 15", "Febrero 2"]
+ts5 = ["Toy Story 5", "Enero 28", "Febrero 3"]
+#+END_SRC
+
+#+RESULTS:
+
+Hay (al menos) dos maneras en que se puede mejorar esto. Primero,
+probablemente la actriz necesita saber la cantidad de días de trabajo
+por película para determinar su salario. Para esto, es conveniente
+usar la biblioteca =datetime=.
+
+#+BEGIN_SRC ipython :session  
+from datetime import date
+st10 = ["Star Wars 10", date(2020,1,15), date(2020,2,2)]
+ts5=["Toy Story 5", date(2020,1,28), date(2020,2,3)]
+duracion_st10 = st10[2]-st10[1]
+duracion_ts5 = ts5[2]-ts5[1]
+duracion_st10.days, duracion_ts5.days
+#+END_SRC
+
+#+RESULTS:
+: : (18, 6)
+
+La otra manera es usar una nueva estructura de datos, los
+=diccionarios=. Esto es conveniente, pues los datos de la película no
+son todos de la misma naturaleza.
+
+#+BEGIN_SRC ipython :session  
+st10 = {'titulo':"Star Wars 10", 'inicio':date(2020,1,15), 'final':date(2020,2,2)}
+ts5={'titulo':"Toy Story 5", 'inicio':date(2020,1,28), 'final':date(2020,2,3)}
+st10['titulo'], (st10['final']-st10['inicio']).days
+#+END_SRC
+
+#+RESULTS:
+
+Otra manera de introducir diccionarios cuando las /claves/ son cadenas
+simples:
+
+#+BEGIN_SRC ipython :session  
+ana3=dict(titulo="Anabelle 3",inicio=date(2020,3,2),final=date(2020,3,5))
+ana3, ana3['titulo'], ana3['inicio']
+#+END_SRC
+
+#+RESULTS:
+: #+BEGIN_EXAMPLE
+:   ({'titulo': 'Anabelle 3',
+:   'inicio': datetime.date(2020, 3, 2),
+:   'final': datetime.date(2020, 3, 5)},
+:   'Anabelle 3',
+:   datetime.date(2020, 3, 2))
+: #+END_EXAMPLE
+
+Otra manera es asignar los datos sucesivamente:
+
+#+begin_src ipython :session 
+ps4 = {}
+ps4['titulo'] = "Planeta de los Simios 4"
+ps4['inicio'] = date(2020,1,17)
+ps4['final'] = date(2020,3,3)
+ps4
+#+end_src
+
+#+RESULTS:
+: #+BEGIN_EXAMPLE
+:   {'titulo': 'Planeta de los Simios 4',
+:   'inicio': datetime.date(2020, 1, 17),
+:   'final': datetime.date(2020, 3, 3)}
+: #+END_EXAMPLE
+
+Otra manera es usando =zip=, que es una operación entre listas.
+
+#+begin_src ipython :session 
+claves = ['titulo', 'inicio', 'final']
+datos = ["Titanic 2", date(2020,2,4), date(2020,2,25)]
+list(zip(claves, datos))
+#+end_src
+
+#+RESULTS:
+: #+BEGIN_EXAMPLE
+:   [('titulo', 'Titanic 2'),
+:   ('inicio', datetime.date(2020, 2, 4)),
+:   ('final', datetime.date(2020, 2, 25))]
+: #+END_EXAMPLE
+
+#+begin_src ipython :session 
+ti2 = dict(zip(claves, datos))
+ti2
+#+end_src
+
+#+RESULTS:
+: #+BEGIN_EXAMPLE
+:   {'titulo': 'Titanic 2',
+:   'inicio': datetime.date(2020, 2, 4),
+:   'final': datetime.date(2020, 2, 25)}
+: #+END_EXAMPLE
+
+* Operaciones en listas
+
+Una manera sencilla de crear nuevas listas a partir de otras:
+
+#+begin_src ipython :session
+cuadrados = [x**2 for x in range(10)]
+cuadrados
+#+end_src
+
+#+RESULTS:
+: : [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+Funciona también para diccionarios
+
+#+begin_src ipython :session 
+datos = [ti2[info] for info in claves]
+datos
+#+end_src
+
+#+RESULTS:
+: : ['Titanic 2', datetime.date(2020, 2, 4), datetime.date(2020, 2, 25)]
+
+* Gráficas
+
+Para trabajar con gráficas en python usaremos la biblioteca [[https://networkx.github.io/][networkx]].
+
+#+begin_src ipython :session
+import networkx as nx
+g=nx.complete_graph(5)
+#+end_src
+
+#+RESULTS:
+: # Out[40]:
+
+#+begin_src ipython :session :results file
+nx.draw(g)
+#+end_src
+
+#+RESULTS:
+[[file:./obipy-resources/wBwS7H.png]]
+
+#+begin_src ipython :session :results file
+nx.draw(g, with_labels=True)
+#+end_src
+
+#+RESULTS:
+[[file:./obipy-resources/UPC7ds.png]]
+
+
+
+* COMMENT Local Variables
+
+# Local Variables:
+# org-confirm-babel-evaluate: nil
+# End:
