@@ -4,7 +4,6 @@
 
 #+setupfile: options.org
 #+beamer: \languagepath{spanish}
-#+latex_header: \usepackage{tkz-berge}
 
 * Definiciones
 

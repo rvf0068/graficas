@@ -43,10 +43,11 @@
 #+latex_header: \lstalias{ipython}{python}
 
 #+latex_header: \usepackage{tikz}
+#+latex_header: \usepackage{tkz-berge}
 #+latex_header: \usetikzlibrary{graphs}
 #+latex_header: \usetikzlibrary{graphs.standard}
 
 #+property: header-args:latex :imagemagick t :iminoptions -density 300 -resize 400
-#+property: header-args:latex+ :packages '(("" "tikz")) :border 1pt
+#+property: header-args:latex+ :packages '(("" "tikz") ("" "tkz-berge")) :border 1pt
 #+property: header-args:latex+ :headers '("\\usetikzlibrary{graphs}\\usetikzlibrary{graphs.standard}")
 #+property: header-args:latex+ :results raw file :cache yes
