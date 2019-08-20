@@ -96,7 +96,98 @@
      \(V(K_{n})=\{1,2,\ldots, n\}\) y \(E(G)=\binom{V(G)}{2}\).
    - La *gráfica vacía* \(\overline{K_{n}}\) es la gráfica con
      \(V(\overline{K_{n}})=V(K_{n})\) y
-     \(E(\overline{K_{n}}=\emptyset)\).
+     \(E(\overline{K_{n}})=\emptyset\).
+
+** Complemento
+
+   - Dada una gráfica \(G\), su *complemento* es la gráfica
+     \(\overline{G}\) tal que \(V(\overline{G})=V(G)\) y
+     \(E(\overline{G})=\binom{V(G)}{2}\setminus E(G)\).
+
+   - Por ejemplo:
+
+      #+name: complemento
+      #+header: :file (by-backend (latex "complemento.tikz") (beamer "complemento.tikz") (t "complemento.png"))
+       #+begin_src latex :results raw file
+\begin{tikzpicture}
+  \SetVertexNoLabel
+  \grCycle[RA=2, rotation=45]{4}
+  \AssignVertexLabel{a}{1,2,3,4}
+  \grEmptyCycle[prefix=b, RA=2, rotation=45,x=7]{4}
+  \AssignVertexLabel{b}{1,2,3,4}
+  \Edge(b1)(b3)
+  \Edge(b0)(b2)
+  \draw (0,-2) node [fill=orange!80!white,below]{\(G\)};
+  \draw (7,-2) node [fill=orange!80!white,below]{\(\overline{G}\)};
+\end{tikzpicture}
+       #+end_src
+
+      #+attr_html: :width 400 :alt complemento :align center
+      #+attr_latex: :float t :width 7cm
+      #+RESULTS[b0ecf844150e6b4c067330362180b04f2ca9c8db]: complemento
+      [[file:complemento.png]]
+
+** Gráficas autocomplementarias
+
+   - Hay gráficas tales que, salvo renombrar los vértices, se "ven
+     igual" que su complemento. Tales gráficas se llaman
+     *autocomplementarias*. Por ejemplo:
+#+name: autocomplementaria
+#+header: :file (by-backend (latex "autocomplementaria.tikz") (beamer "autocomplementaria.tikz") (t "autocomplementaria.png"))
+#+begin_src latex :results raw file
+\begin{tikzpicture}
+  \SetVertexNoLabel
+  \grCycle[RA=2, rotation=90]{5}
+  \AssignVertexLabel{a}{1,2,3,4,5}
+  \grEmptyCycle[prefix=b, RA=2, rotation=90,x=7]{5}
+  \AssignVertexLabel{b}{1,2,3,4,5}
+  \Edge(b0)(b2)
+  \Edge(b2)(b4)
+  \Edge(b4)(b1)
+  \Edge(b1)(b3)
+  \Edge(b3)(b0)
+  \draw (0,-2) node [fill=orange!80!white,below]{\(G\)};
+  \draw (7,-2) node [fill=orange!80!white,below]{\(\overline{G}\)};
+\end{tikzpicture}
+#+end_src
+
+#+attr_html: :width 400 :alt autocomplementaria :align center
+#+attr_latex: :float t :width 7cm
+#+RESULTS[6af304710ce499900a150dc7e296d75c2a287682]: autocomplementaria
+[[file:autocomplementaria.png]]
+
+   - La correspondencia entre los vértices está dada por \(1\mapsto
+     1\), \(2\mapsto 3\), \(3\mapsto 5\), \(4\mapsto 2\) y \(5\mapsto
+     4\).
+
+** Isomorfismo de gráficas
+
+   - Se dice que dos gráficas \(G_{1}\), \(G_{2}\) son *isomorfas* si
+     existe una correspondencia biyectiva \(f\colon V(G_{1})\to
+     V(G_{2})\) de tal manera que \(\{v_{1},v_{2}\}\in E(G_{1})\) si y
+     solo si \(\{f(v_{1}),f(v_{2})\}\in E(G_{2})\). Decimos entonces
+     que \(f\) es un *isomorfismo* y escribimos \(G_{1}\cong G_{2}\)
+   - Con este concepto, entonces se puede definir una gráfica
+     autocomplementaria como una gráfica que es isomorfa a su
+     complemento.
+
+** Teorema de autocomplementaridad
+
+   - *Teorema.* Si \(G\) es autocomplementaria, entonces \(|G|\equiv
+     0\text{ o }1\pmod{4}\).
+     - /Demostración./ Si \(G\cong \overline{G}\), entonces
+       \(\epsilon(G)=\epsilon(\overline{G})\). Como
+       \(E(\overline{G})=\binom{V(G)}{2}\setminus E(G)\), entonces
+       \(\epsilon(\overline{G})=\binom{|G|}{2}-\epsilon(G)\), por lo
+       que:
+       \begin{equation*}
+       \epsilon(G)=\frac{1}{2}\binom{|G|}{2}=\frac{1}{4}|G|(|G|-1).
+       \end{equation*}
+     - Como \(|G|\) y \(|G|-1\) son enteros consecutivos, uno de ellos
+       es impar. Se deduce que no puede pasar que \(2\) divida a
+       \(|G|\) y \(2\) divida a \(|G|-1\), por lo que \(4\) divide a
+       \(|G|\) o \(4\) divide a \(|G|-1\), como queríamos
+       demostrar. \(\square\)
 
 * COMMENT Local Variables
 
