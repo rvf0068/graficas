@@ -26,6 +26,9 @@ Una <b>gráfica simple</b> es un par ordenado \(G=(V(G),E(G))\) tal que:
 <li>\(V(G)\) es un conjunto, cuyos elementos se llaman <b>vértices</b>,</li>
 <li>\(E(G)\) es un conjunto cuyos elementos son subconjuntos de
 \(V(G)\) de cardinalidad 2. Los elementos de \(E(G)\) se llaman <b>aristas</b>.</li>
+<li>Si denotamos el conjunto de parejas de elementos de un conjunto
+\(X\) como \(\binom{X}{2}\), tenemos que \(E(G)\subseteq
+      \binom{V(G)}{2}\).</li>
 </ul>
 </div>
 </li>
@@ -111,22 +114,130 @@ de las aristas.
 </p>
 </div>
 </div>
-</div>
 
-
-<div id="outline-container-org21e5af0" class="outline-2">
-<h2 id="org21e5af0"><span class="section-number-2">2</span> Otros tipos de gráficas</h2>
-<div class="outline-text-2" id="text-2">
-</div>
 <div id="outline-container-orga61c669" class="outline-3">
-<h3 id="orga61c669"><span class="section-number-3">2.1</span> Multigráficas, lazos, digráficas</h3>
-<div class="outline-text-3" id="text-2-1">
+<h3 id="orga61c669"><span class="section-number-3">1.5</span> Multigráficas, lazos, digráficas</h3>
+<div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>En una gráfica simple, las aristas unen vértices distintos, y
 entre un par de vértices distintos puede haber a lo más una
 arista.</li>
 <li>Una <b>multigráfica</b> es parecida a una gráfica, pero además se
 permiten <b>aristas múltiples</b> y <b>lazos</b>.</li>
+<li>En una <b>digráfica</b>, las aristas son pares ordenados \((u,v)\). En
+este caso, las aristas se suelen llamar <b>flechas</b>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb08f26e" class="outline-3">
+<h3 id="orgb08f26e"><span class="section-number-3">1.6</span> Orden y tamaño</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li>La cantidad de vértices de una gráfica (finita) \(G\) se llama el
+<b>orden</b> y se denota con \(|G|\).</li>
+<li>La cantidad de aristas de una gráfica \(G\) se llama el <b>tamaño</b>
+de la gráfica y se denota con \(\epsilon(G)\). Nótese que
+\(\epsilon(G)\leq\binom{|G|}{2}\).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga382690" class="outline-3">
+<h3 id="orga382690"><span class="section-number-3">1.7</span> Gráfica completa y gráfica vacía</h3>
+<div class="outline-text-3" id="text-1-7">
+<ul class="org-ul">
+<li>La <b>gráfica completa</b> \(K_{n}\) es la gráfica simple donde
+\(V(K_{n})=\{1,2,\ldots, n\}\) y \(E(G)=\binom{V(G)}{2}\).</li>
+<li>La <b>gráfica vacía</b> \(\overline{K_{n}}\) es la gráfica con
+\(V(\overline{K_{n}})=V(K_{n})\) y
+\(E(\overline{K_{n}})=\emptyset\).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4b5444c" class="outline-3">
+<h3 id="org4b5444c"><span class="section-number-3">1.8</span> Complemento</h3>
+<div class="outline-text-3" id="text-1-8">
+<ul class="org-ul">
+<li>Dada una gráfica \(G\), su <b>complemento</b> es la gráfica
+\(\overline{G}\) tal que \(V(\overline{G})=V(G)\) y
+\(E(\overline{G})=\binom{V(G)}{2}\setminus E(G)\).</li>
+
+<li><p>
+Por ejemplo:
+</p>
+
+
+<div class="figure">
+<p><img src="{{ site.baseurl }}/images/complemento.png" alt="complemento" width="400" align="center" />
+</p>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6cf4e53" class="outline-3">
+<h3 id="org6cf4e53"><span class="section-number-3">1.9</span> Gráficas autocomplementarias</h3>
+<div class="outline-text-3" id="text-1-9">
+<ul class="org-ul">
+<li>Hay gráficas tales que, salvo renombrar los vértices, se &ldquo;ven
+igual&rdquo; que su complemento. Tales gráficas se llaman
+<b>autocomplementarias</b>. Por ejemplo:</li>
+</ul>
+
+<div class="figure">
+<p><img src="{{ site.baseurl }}/images/autocomplementaria.png" alt="autocomplementaria" width="400" align="center" />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>La correspondencia entre los vértices está dada por \(1\mapsto
+     1\), \(2\mapsto 3\), \(3\mapsto 5\), \(4\mapsto 2\) y \(5\mapsto
+     4\).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org74421d2" class="outline-3">
+<h3 id="org74421d2"><span class="section-number-3">1.10</span> Isomorfismo de gráficas</h3>
+<div class="outline-text-3" id="text-1-10">
+<ul class="org-ul">
+<li>Se dice que dos gráficas \(G_{1}\), \(G_{2}\) son <b>isomorfas</b> si
+existe una correspondencia biyectiva \(f\colon V(G_{1})\to
+     V(G_{2})\) de tal manera que \(\{v_{1},v_{2}\}\in E(G_{1})\) si y
+solo si \(\{f(v_{1}),f(v_{2})\}\in E(G_{2})\). Decimos entonces
+que \(f\) es un <b>isomorfismo</b> y escribimos \(G_{1}\cong G_{2}\)</li>
+<li>Con este concepto, entonces se puede definir una gráfica
+autocomplementaria como una gráfica que es isomorfa a su
+complemento.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org30f2249" class="outline-3">
+<h3 id="org30f2249"><span class="section-number-3">1.11</span> Teorema de autocomplementaridad</h3>
+<div class="outline-text-3" id="text-1-11">
+<ul class="org-ul">
+<li><b>Teorema.</b> Si \(G\) es autocomplementaria, entonces \(|G|\equiv
+     0\text{ o }1\pmod{4}\).
+<ul class="org-ul">
+<li><p>
+<i>Demostración.</i> Si \(G\cong \overline{G}\), entonces
+\(\epsilon(G)=\epsilon(\overline{G})\). Como
+\(E(\overline{G})=\binom{V(G)}{2}\setminus E(G)\), entonces
+\(\epsilon(\overline{G})=\binom{|G|}{2}-\epsilon(G)\), por lo
+que:
+</p>
+\begin{equation*}
+\epsilon(G)=\frac{1}{2}\binom{|G|}{2}=\frac{1}{4}|G|(|G|-1).
+\end{equation*}</li>
+<li>Como \(|G|\) y \(|G|-1\) son enteros consecutivos, uno de ellos
+es impar. Se deduce que no puede pasar que \(2\) divida a
+\(|G|\) y \(2\) divida a \(|G|-1\), por lo que \(4\) divide a
+\(|G|\) o \(4\) divide a \(|G|-1\), como queríamos
+demostrar. \(\square\)</li>
+</ul></li>
 </ul>
 </div>
 </div>
