@@ -1,0 +1,280 @@
+#+title: Havel-Hakimi, y networkx
+#+options: toc:nil
+#+latex_header: \usepackage{listings}
+
+* Erdős-Gallai y Havel-Hakimi en Python
+
+Ya vimos una manera de crear una sucesión aleatoria de números para
+checar si forman una sucesión gráfica o no.
+
+Estamos usando la función =randint= dentro de la biblioteca =random=
+(que viene con Python, por lo que es parte de la /Python Standard
+Library/). La función =random.randint(a,b)= regresa un entero
+aleatorio entre los enteros =a= y =b=, incluyendo posiblemente ambos
+extremos. 
+
+#+begin_src ipython :session hh
+import random
+
+def random_sequence(n):
+    seq = []
+    for i in range(n):
+        seq.append(random.randint(1, n-1))
+    seq.sort(reverse=True)
+    return seq
+#+end_src
+
+#+RESULTS:
+: # Out[1]:
+
+#+begin_src ipython :session hh
+random_sequence(14)
+#+end_src
+
+#+RESULTS:
+: # Out[7]:
+: : [13, 12, 12, 10, 10, 8, 8, 7, 5, 4, 4, 4, 3, 1]
+
+** Erdős-Gallai
+
+El teorema de Erdős-Gallai dice que una sucesión
+\((d_{1},d_{2},\ldots,d_{n})\) de enteros positivos tales que
+\(d_{1}\geq d_{2}\geq\cdots\geq d_{n}\) es gráfica si y solo si se
+cumplen: 
+1. \(\sum_{i=1}^{n}d_{i}\) es par.
+2. Para todo \(k\) se tiene que:
+   \begin{equation*}
+   \sum_{i=1}^{k}d_{i}\leq k(k-1)+\sum_{i=k+1}^{n}\min\{d_{i},k\}.
+   \end{equation*}
+
+Definimos una función para verificar las condiciones anteriores en una
+sucesión de enteros:
+
+#+begin_src ipython :session hh
+def erdos_gallai(seq):
+    if sum(seq) % 2 == 1:
+        return False
+    else:
+        n = len(seq)
+        for k in range(1, n+1):
+            minimums = list(map(lambda i: min(i, k), seq[k:]))
+            print(k, sum(seq[0:k]), k*(k-1) + sum(minimums))
+            if sum(seq[0:k]) > (k*(k-1) + sum(minimums)):
+                return False
+        else:
+            return True
+#+end_src
+
+#+RESULTS:
+: # Out[8]:
+
+#+begin_src ipython :session hh
+seq = random_sequence(14)
+seq, erdos_gallai(seq)
+#+end_src
+
+#+RESULTS:
+: # Out[10]:
+: : ([13, 11, 10, 10, 9, 8, 7, 6, 6, 5, 5, 3, 2, 1], True)
+
+** Havel-Hakimi
+
+El teorema de Havel-Hakimi dice que una sucesión
+\(D=(d_{1},d_{2},\ldots,d_{n})\) como la de antes es gráfica, si y
+solo si la sucesión
+\(D'=(d_{2}-1,d_{3}-1,\ldots,d_{d_{1}+1}-1,d_{d_{2}+2},\ldots,d_{n})\)
+es gráfica.
+
+Definimos una función que crea la sucesión \(D'\):
+
+#+begin_src ipython :session hh
+def d_prime(seq):
+    newseq = []
+    if len(seq) > 0:
+        bigger = seq[0]
+        if len(seq) < bigger+1:
+            return [-1]
+        else:
+            for i in range(1, bigger+1):
+                newseq.append(seq[i]-1)
+            for i in range(bigger+1, len(seq)):
+                newseq.append(seq[i])
+        newseq.sort(reverse=True)
+    return newseq
+#+end_src
+
+#+RESULTS:
+: # Out[19]:
+
+Por ejemplo:
+
+#+begin_src ipython :session hh
+d_prime([4,3,3,2,1,1]), d_prime([4,3,2,1])
+#+end_src
+
+#+RESULTS:
+: # Out[20]:
+: : ([2, 2, 1, 1, 0], [-1])
+
+Con esto, podemos dar una función recursiva que cheque recursivamente
+el algoritmo.
+
+#+begin_src ipython :session hh
+def havel_hakimi(seq):
+    print(seq)
+    if seq == []:
+        return True
+    elif seq[-1] < 0:
+        return False
+    else:
+        newseq = d_prime(seq)
+        return havel_hakimi(newseq)
+#+end_src
+
+#+RESULTS:
+: # Out[21]:
+
+Por ejemplo:
+
+#+begin_src ipython :session hh
+havel_hakimi([4,3,3,2,1,1])
+#+end_src
+
+#+RESULTS:
+: # Out[22]:
+: : True
+
+* Networkx
+
+=networkx= es una biblioteca (que no es parte de la biblioteca
+estándar de Python) que permite trabajar con gráficas.
+
+#+begin_src ipython :session hh
+import networkx as nx
+g = nx.Graph()
+g.add_nodes_from([0, 1, 2, 3])
+g.add_edges_from([(0, 1), (0, 2), (1, 3), (1, 2), (2, 3)])
+#+end_src
+
+#+RESULTS:
+: # Out[28]:
+
+#+begin_src ipython :session hh :results file
+nx.draw(g)
+#+end_src
+
+#+RESULTS:
+[[file:./obipy-resources/SHdtpf.png]]
+
+#+begin_src ipython :session hh :results file
+nx.draw(g, with_labels=True)
+#+end_src
+
+#+RESULTS:
+[[file:./obipy-resources/3JHX7J.png]]
+
+Hay algunas gráficas que ya están predefinidas.
+
+#+begin_src ipython :session hh :results file 
+g=nx.complete_graph(5)
+nx.draw(g, with_labels=True)
+#+end_src
+
+#+RESULTS:
+[[file:./obipy-resources/AtHVNf.png]]
+
+#+begin_src ipython :session hh :results file
+g=nx.petersen_graph()
+nx.draw(g, with_labels=True)
+#+end_src
+
+#+RESULTS:
+[[file:./obipy-resources/aWIg5k.png]]
+
+#+begin_src ipython :session hh :results file
+g=nx.petersen_graph()
+nx.draw_shell(g, with_labels=True, nlist=[range(5,10), range(5)])
+#+end_src
+
+#+RESULTS:
+[[file:./obipy-resources/yYeXDO.png]]
+
+
+** Gráficas aleatorias
+
+#+begin_src ipython :session hh :results file
+g=nx.gnp_random_graph(10, 0.2)
+nx.draw(g, with_labels=True)
+#+end_src
+
+#+RESULTS:
+[[file:./obipy-resources/H3A2sx.png]]
+
+#+begin_src ipython :session hh :results file
+g=nx.gnp_random_graph(50, 0.2)
+nx.draw(g, with_labels=True)
+#+end_src
+
+#+RESULTS:
+[[file:./obipy-resources/ZSoTj3.png]]
+
+#+begin_src ipython :session hh :results file
+g=nx.gnp_random_graph(50, 0.03)
+nx.draw(g, with_labels=True)
+#+end_src
+
+#+RESULTS:
+[[file:./obipy-resources/nhH9lJ.png]]
+
+#+begin_src ipython :session hh
+g.edges()
+#+end_src
+
+#+RESULTS:
+#+begin_example
+# Out[41]:
+,#+BEGIN_EXAMPLE
+  [(0, 11),
+  (0, 13),
+  (1, 11),
+  (3, 16),
+  (3, 41),
+  (3, 47),
+  (6, 48),
+  (7, 35),
+  (9, 12),
+  (9, 37),
+  (10, 20),
+  (11, 16),
+  (11, 28),
+  (12, 24),
+  (12, 27),
+  (13, 44),
+  (14, 30),
+  (15, 43),
+  (17, 21),
+  (17, 36),
+  (18, 49),
+  (19, 42),
+  (21, 32),
+  (24, 28),
+  (26, 35),
+  (27, 33),
+  (27, 34),
+  (29, 42),
+  (29, 45),
+  (29, 49),
+  (32, 39),
+  (33, 42),
+  (33, 48),
+  (34, 41),
+  (35, 38),
+  (41, 47),
+  (48, 49)]
+,#+END_EXAMPLE
+#+end_example
+
+
+# Local Variables:
+# org-confirm-babel-evaluate: nil
+# End:
