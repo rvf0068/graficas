@@ -1,0 +1,173 @@
+#+title: Conexidad
+#+author: 
+#+date: 2019-09-25 17:00 -0500
+
+#+setupfile: options.org
+#+beamer: \languagepath{spanish}
+
+* Teoremas de conexidad
+
+** Suma de grados
+
+*** Suma de grados                                                :B_theorem:
+    :PROPERTIES:
+    :BEAMER_env: theorem
+    :END:
+    Si \(G\) es una gráfica no trivial de orden \(n\) tal que
+    \(\mathrm{grado}(u)+\mathrm{grado}(v)\geq n-1\) para cualesquiera
+    dos vértices no adyacentes \(u,v\), entonces \(G\) es conexa.
+
+***                                                         :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+
+    - Sean \(x,y\) vértices distintos en \(G\) y mostraremos que hay
+      un \(xy\)-camino. Podemos suponer que \(x,y\) no son adyacentes.
+    - Como \(\mathrm{grado}(x)+\mathrm{grado}(y)\geq n-1\), hay un
+      vértice \(z\) adyacente a ambos \(x,y\). [Si no, tendríamos
+      \(\mathrm{grado}(x)+\mathrm{grado}(y)\leq n-2\)]
+    - Por lo tanto \((x,z,y)\) es un \(xy\)-camino. \(\square\)
+
+** 
+
+*** Grado mínimo                                                :B_corollary:
+    :PROPERTIES:
+    :BEAMER_env: corollary
+    :END:
+    Si \(G\) es una gráfica de orden \(n\) con \(\delta(G)\geq
+    \frac{n-1}{2}\), entonces \(G\) es conexa.
+
+***                                                         :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    - Si \(u,v\) no son adyacentes, tenemos que:
+      \begin{equation*}
+      \mathrm{grado}(u)+\mathrm{grado}(v)\geq \frac{n-1}{2}+\frac{n-1}{2}=n-1,
+      \end{equation*}
+      por lo que por el teorema se sigue que \(G\) es conexa. \(\square\)
+
+** 
+
+*** Tamaño                                                        :B_theorem:
+    :PROPERTIES:
+    :BEAMER_env: theorem
+    :END:
+    Si \(G\) es una gráfica de orden \(n\geq 2\) y tamaño \(m\geq
+    \binom{n-1}{2}+1\), entonces \(G\) es conexa.
+
+***                                                         :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    - Se demuestra inmediatamente para \(n=2,3,4\), así que
+      supondremos \(n\geq 5\).
+    - Sean \(u,v\) dos vértices no adyacentes. Si \(u,v\) tienen un
+      vecino común \(w\), entonces \((u,w,v)\) es un \(uv\)-camino,
+      así que supondremos que no lo tienen.
+    - Se sigue que \(\mathrm{gr}(u)+\mathrm{gr}(v)\leq
+      n-2\). Sea \(G'=G-u-v\). Entonces \(G'\) tiene orden \(n'=n-2\)
+      y tamaño:
+      \begin{equation*}
+      m'=m-\mathrm{gr}(u)-\mathrm{gr}(v)\geq \binom{n-1}{2}+1-(n-2)=\binom{n-2}{2}+1.
+      \end{equation*}
+    - Pero el tamaño de una gráfica de orden \(n-2\) es cuando mucho
+      \(\binom{n-2}{2}\), por lo que llegamos a una contradicción. \(\square\)
+
+
+* Distancia
+
+** Distancia en gráficas
+
+*** Distancia                                                  :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+    Si \(u,v\) son vértices en la gráfica \(G\), se define la
+    *distancia* \(d(u,v)\) como la longitud del \(uv\)-camino más
+    corto. Si no hay un \(uv\)-camino en \(G\) se define
+    \(d(u,v)=\infty\).
+
+***                                                         :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    Un \(uv\)-camino de longitud \(d(u,v)\) se llama una *geodésica*.
+
+** 
+
+*** Propiedades de la distancia                               :B_proposition:
+    :PROPERTIES:
+    :BEAMER_env: proposition
+    :END:
+    Si \(G\) es una gráfica conexa, entonces:
+    - \(d(u,v)\geq 0\) para cualesquiera \(u,v\in V(G)\),
+    - \(d(u,v)=0\) si y solo si \(u=v\),
+    - \(d(u,v)=d(v,u)\) para cualesquiera \(u,v\in V(G)\),
+    - \(d(u,w)\leq d(u,v)+d(v,w)\) para cualesquiera \(u,v,w\in V(G)\),
+
+*** 
+    Es decir \((V(G),d)\) es un espacio métrico.
+
+** Teorema de gráficas bipartitas
+
+*** Bipartitas no tienen ciclos impares                           :B_theorem:
+    :PROPERTIES:
+    :BEAMER_env: theorem
+    :END:
+    Una gráfica con al menos dos vértices es bipartita si y solo si
+    \(G\) no contiene ciclos impares.
+
+***                                                         :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    - Supongamos \(G\) bipartita. Entonces existen \(U,W\) no vacíos
+      tal que \(V(G)=U\cup W\) con \(U\cap W=\emptyset\) y cualquier
+      arista une un vértice de \(U\) y un vértice de \(W\).
+    - Sea \(C=(v_{1},v_{2},\ldots,v_{k},v_{1})\) un \(k\)-ciclo de
+      \(G\). Supongamos \(v_{1}\in U\). Entonces \(v_{2}\in W\),
+      \(v_{3}\in U\), etc.
+    - En particular \(v_{i}\in U\) si \(i\) es impar y \(v_{i}\in W\)
+      si \(i\) es par. Como \(v_{1}\in U\) implica \(v_{k}\in W\), se
+      tiene que \(k\) es par.
+    
+** 
+   - Para el recíproco, sea \(G\) una gráfica con al menos dos
+     vértices sin ciclos impares. Puesto que una gráfica es bipartita
+     si y solo si cada componente conexa con al menos dos vértices de
+     \(G\) es bipartita, podemos suponer que \(G\) es conexa.
+   - Sea \(u\) un vértice arbitrario de \(G\). Definimos
+     \begin{align*}
+     U&=\{x\in V(G)\mid d(u,x)\text{ es par}\},\\
+     W&=\{x\in V(G)\mid d(u,x)\text{ es impar}\}
+     \end{align*}
+   - Tenemos que \(V(G)=U\cup W\) y que \(U\cap W=\emptyset\). Para
+     que \(G\) sea bipartita basta mostrar que no hay una arista entre
+     dos vértices de \(U\) ni entre dos vértices de \(W\).
+
+** 
+
+   - Supongamos \(w_{1},w_{2}\in W\) que sean adyacentes. Sea
+     \(P_{1}\) una \(uw_{1}\)-geodésica y sea \(P_{2}\) una
+     \(uw_{2}\)-geodésica.
+   - Sea \(z\) el último vértice que tienen en común \(P_{1}\) y
+     \(P_{2}\) (posiblemente \(z=u\)). Entonces la longitud del
+     \(zw_{1}\)-subcamino \(P'_{1}\) de \(P_{1}\) y la longitud del
+     \(zw_{2}\)-subcamino \(P'_{2}\) de \(P_{2}\) tienen la misma paridad.
+   - Por lo tanto, los caminos \(P'_{1}\), \(P'_{2}\) y la arista
+     \(w_{1}w_{2}\) forma un ciclo impar. Pero \(G\) no tenía ciclos
+     impares. Por lo tanto, no hay una arista entre dos vértices de
+     \(W\).
+   - Similarmente se demuestra que no hay una arista entre dos
+     vértices de \(U\), por lo que \(G\) es bipartita. \(\square\)
+
+
+
+* COMMENT Local Variables
+
+# Local Variables:
+# org-confirm-babel-evaluate: nil
+# org-latex-prefer-user-labels: t
+# End:

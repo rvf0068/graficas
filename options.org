@@ -47,6 +47,9 @@
 #+latex_header: \usetikzlibrary{graphs}
 #+latex_header: \usetikzlibrary{graphs.standard}
 
+#+latex_header: \theoremstyle{theorem}
+#+latex_header: \newtheorem*{proposition}{Proposición}
+
 #+property: header-args:latex :imagemagick t :iminoptions -density 300 -resize 400
 #+property: header-args:latex+ :packages '(("" "tikz") ("" "tkz-berge")) :border 1pt
 #+property: header-args:latex+ :headers '("\\usetikzlibrary{graphs}\\usetikzlibrary{graphs.standard}")
